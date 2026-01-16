@@ -11,16 +11,21 @@
 
   <input type="password" id="passInput" placeholder="Password">
   <br>
-  <button onclick="checkPass()">Unlock</button>
+  <button onclick="checkPass()">ENTER</button>
 
   <script>
     async function checkPass() {
       const entered = document.getElementById("passInput").value;
 
-      // Load password from external file
-      const response = await fetch("password.txt");
-      const correct = (await response.text()).trim();
+      // Step 1: Load the URL from password.txt
+      const urlFile = await fetch("password.txt");
+      const passwordURL = (await urlFile.text()).trim();
 
+      // Step 2: Fetch the actual password from that URL
+      const passFile = await fetch(passwordURL);
+      const correct = (await passFile.text()).trim();
+
+      // Step 3: Compare
       if (entered === correct) {
         window.location.href = "iframe.html";
       } else {
