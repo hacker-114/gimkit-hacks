@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Access Gate</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>ENTER ACCESS CODE</h1>
+
+  <input type="password" id="passInput" placeholder="Password">
+  <br>
+  <button onclick="checkPass()">Unlock</button>
+
+  <script>
+    async function checkPass() {
+      const entered = document.getElementById("passInput").value;
+
+      // Load password from external file
+      const response = await fetch("password.txt");
+      const correct = (await response.text()).trim();
+
+      if (entered === correct) {
+        window.location.href = "iframe.html";
+      } else {
+        alert("Incorrect password");
+      }
+    }
+  </script>
+
+</body>
+</html>
